@@ -6,7 +6,7 @@
 /*   By: yxu <yxu@student.42tokyo.jp>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 13:14:39 by yxu               #+#    #+#             */
-/*   Updated: 2023/10/08 19:49:43 by yxu              ###   ########.fr       */
+/*   Updated: 2023/10/08 22:29:29 by yxu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,4 @@ char	*ft_free2(char *s1, char *s2)
 	free(s1);
 	free(s2);
 	return (NULL);
-}
-
-void	ft_pzero2(void *p1, void *p2)
-{
-	*(char **)p1 = NULL;
-	*(char **)p2 = NULL;
 }

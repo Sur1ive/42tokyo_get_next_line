@@ -6,7 +6,7 @@
 /*   By: yxu <yxu@student.42tokyo.jp>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 13:14:39 by yxu               #+#    #+#             */
-/*   Updated: 2023/10/08 19:54:30 by yxu              ###   ########.fr       */
+/*   Updated: 2023/10/08 22:29:06 by yxu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ char	*get_next_line(int fd);
 char	*ft_strjoin_free(char *s1, char *s2);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_free2(char *s1, char *s2);
-void	ft_pzero2(void *p1, void *p2);
 size_t	ft_strlen(const char *str);
 
 #endif
