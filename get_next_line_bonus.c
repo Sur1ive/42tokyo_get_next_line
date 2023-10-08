@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yxu <yxu@student.42tokyo.jp>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 13:14:39 by yxu               #+#    #+#             */
-/*   Updated: 2023/10/08 22:13:52 by yxu              ###   ########.fr       */
+/*   Updated: 2023/10/08 22:17:48 by yxu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-char	*get_next_line(int fd)
+char	*get_next_line_intialized(int fd, char *line, char *buf)
 {
-	static ssize_t	flag = 1;
-	int				i;
-	char			*line;
-	char			*buf;
+	ssize_t		flag;
+	int			i;
 
 	i = BUFFER_SIZE;
-	ft_pzero2(&line, &buf);
+	flag = 1;
 	while (flag != 0 && !(buf && buf[i - 1] == '\n'))
 	{
 		if (i == BUFFER_SIZE)
@@ -39,6 +37,14 @@ char	*get_next_line(int fd)
 	if (ft_strlen(line) == 0 && flag == 0)
 		return (ft_free2(line, NULL));
 	return (line);
+}
+
+char	*get_next_line(int fd)
+{
+	static int	j;
+
+	(void)j;
+	return (get_next_line_intialized(fd, NULL, NULL));
 }
 
 // #include <stdio.h>
