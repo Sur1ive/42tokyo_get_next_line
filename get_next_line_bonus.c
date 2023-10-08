@@ -6,13 +6,13 @@
 /*   By: yxu <yxu@student.42tokyo.jp>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 13:14:39 by yxu               #+#    #+#             */
-/*   Updated: 2023/10/08 22:17:48 by yxu              ###   ########.fr       */
+/*   Updated: 2023/10/08 22:25:01 by yxu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-char	*get_next_line_intialized(int fd, char *line, char *buf)
+static char	*get_next_line_intialized(int fd, char *line, char *buf)
 {
 	ssize_t		flag;
 	int			i;
