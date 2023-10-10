@@ -6,7 +6,7 @@
 /*   By: yxu <yxu@student.42tokyo.jp>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 13:14:39 by yxu               #+#    #+#             */
-/*   Updated: 2023/10/08 22:29:29 by yxu              ###   ########.fr       */
+/*   Updated: 2023/10/10 18:27:58 by yxu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,6 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	free(s1);
 	free(s2);
 	return (start);
-}
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	void	*mem;
-	size_t	n;
-
-	if (size != 0 && count > SIZE_MAX / size)
-		return (NULL);
-	n = size * count;
-	mem = (void *)malloc(n);
-	if (mem == NULL)
-		return (NULL);
-	while (n-- != 0)
-		((unsigned char *)mem)[n] = 0;
-	return (mem);
 }
 
 char	*ft_free2(char *s1, char *s2)

@@ -6,7 +6,7 @@
 /*   By: yxu <yxu@student.42tokyo.jp>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 13:14:39 by yxu               #+#    #+#             */
-/*   Updated: 2023/10/08 22:26:25 by yxu              ###   ########.fr       */
+/*   Updated: 2023/10/10 20:14:23 by yxu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static char	*get_next_line_intialized(int fd, char *line, char *buf)
 {
 	ssize_t		flag;
-	int			i;
+	long long	i;
 
 	i = BUFFER_SIZE;
 	flag = 1;
@@ -24,14 +24,16 @@ static char	*get_next_line_intialized(int fd, char *line, char *buf)
 		if (i == BUFFER_SIZE)
 		{
 			line = ft_strjoin_free(line, buf);
-			buf = (char *)ft_calloc(1, BUFFER_SIZE + 1);
+			buf = (char *)malloc(BUFFER_SIZE + 1);
 			if (line == NULL || buf == NULL)
 				return (ft_free2(line, buf));
+			buf[0] = 0;
 			i = 0;
 		}
 		flag = read(fd, buf + i++, 1);
 		if (flag == -1)
 			return (ft_free2(line, buf));
+		buf[i] = 0;
 	}
 	line = ft_strjoin_free(line, buf);
 	if (ft_strlen(line) == 0 && flag == 0)
@@ -41,6 +43,8 @@ static char	*get_next_line_intialized(int fd, char *line, char *buf)
 
 char	*get_next_line(int fd)
 {
+	if ((long long)BUFFER_SIZE <= 0 || BUFFER_SIZE >= (long long)INT_MAX)
+		return (NULL);
 	return (get_next_line_intialized(fd, NULL, NULL));
 }
 
