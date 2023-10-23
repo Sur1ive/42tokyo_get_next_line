@@ -6,7 +6,7 @@
 /*   By: yxu <yxu@student.42tokyo.jp>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 13:14:39 by yxu               #+#    #+#             */
-/*   Updated: 2023/10/10 18:26:10 by yxu              ###   ########.fr       */
+/*   Updated: 2023/10/23 00:28:56 by yxu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,25 @@ char	*ft_free2(char *s1, char *s2)
 	free(s1);
 	free(s2);
 	return (NULL);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	size_t	slen;
+	char	*substr;
+
+	if (s == NULL)
+		return (NULL);
+	slen = ft_strlen((char *)s);
+	if (start >= slen)
+		len = 0;
+	else if (len > slen - start)
+		len = slen - start;
+	substr = (char *)malloc(sizeof(char) * (len + 1));
+	if (substr == NULL)
+		return (NULL);
+	substr[len] = '\0';
+	while (len-- > 0)
+		substr[len] = s[start + len];
+	return (substr);
 }
