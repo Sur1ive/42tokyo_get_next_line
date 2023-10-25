@@ -6,11 +6,18 @@
 /*   By: yxu <yxu@student.42tokyo.jp>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 13:14:39 by yxu               #+#    #+#             */
-/*   Updated: 2023/10/23 00:43:22 by yxu              ###   ########.fr       */
+/*   Updated: 2023/10/25 18:12:24 by yxu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+char	*get_line(char *str)
+{
+
+
+
+}
 
 char	*get_next_line(int fd)
 {
@@ -19,33 +26,26 @@ char	*get_next_line(int fd)
 	char		*line;
 	ssize_t		read_byte;
 	size_t		i;
-	size_t		lenremain = ft_strlen(remain);
 
 	if ((long long)BUFFER_SIZE <= 0 || BUFFER_SIZE >= (long long)INT_MAX)
 		return (NULL);
+	if (remain == NULL)
+		return (NULL);
 	i = 0;
 	line = NULL;
-	if (remain != NULL && *remain != '\0')
+	if (*remain != '\0')
 	{
-		while (i < lenremain && remain[i] != '\n')
+		while (i < ft_strlen(remain) && remain[i] != '\n')
 			i++;
-		if (i != lenremain)
+		if (i != ft_strlen(remain))
 		{
 			buf = ft_substr(remain, 0, i + 1);
 			if (buf == NULL)
-			{
-				ft_free2(buf, remain);
-				remain = NULL;
-				return (NULL);
-			}
+				return (remain = ft_free2(buf, remain));
 			line = ft_strjoin_free(line, buf);
-			buf = ft_substr(remain, i + 1, lenremain - i - 1);
+			buf = ft_substr(remain, i + 1, ft_strlen(remain) - i - 1);
 			if (buf == NULL)
-			{
-				ft_free2(buf, remain);
-				remain = NULL;
-				return (NULL);
-			}
+				return (remain = ft_free2(buf, remain));
 			free(remain);
 			remain = buf;
 			return (line);
@@ -58,23 +58,14 @@ char	*get_next_line(int fd)
 	{
 		buf = (char *)malloc(BUFFER_SIZE + 1);
 		if (buf == NULL)
-		{
-			ft_free2(remain, buf);
-			remain = NULL;
-			return (NULL);
-		}
+			return (remain = ft_free2(buf, remain));
 		buf[BUFFER_SIZE] = '\0';
 		read_byte = read(fd, buf, BUFFER_SIZE);
 		if (read_byte == -1)
-		{
-			ft_free2(buf, remain);
-			remain = NULL;
-			return (NULL);
-		}
+			return (remain = ft_free2(buf, remain));
 		if (read_byte == 0)
 		{
-			ft_free2(buf, remain);
-			remain = NULL;
+			remain = ft_free2(buf, remain);
 			return (line);
 		}
 		i = 0;
@@ -84,19 +75,11 @@ char	*get_next_line(int fd)
 		{
 			remain = ft_substr(buf, 0, i + 1);
 			if (remain == NULL)
-			{
-				ft_free2(buf, remain);
-				remain = NULL;
-				return (NULL);
-			}
+				return (remain = ft_free2(buf, remain));
 			line = ft_strjoin_free(line, remain);
 			remain = ft_substr(buf, i + 1, read_byte - i - 1);
 			if (remain == NULL)
-			{
-				ft_free2(buf, remain);
-				remain = NULL;
-				return (NULL);
-			}
+				return (remain = ft_free2(buf, remain));
 			free(buf);
 			buf = NULL;
 			return (line);
