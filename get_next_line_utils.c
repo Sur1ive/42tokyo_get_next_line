@@ -6,11 +6,11 @@
 /*   By: yxu <yxu@student.42tokyo.jp>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 13:14:39 by yxu               #+#    #+#             */
-/*   Updated: 2023/10/23 00:28:56 by yxu              ###   ########.fr       */
+/*   Updated: 2023/10/27 20:05:41 by yxu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 size_t	ft_strlen(const char *str)
 {
@@ -31,10 +31,9 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	size_t	i;
 
 	str = (char *)malloc(ft_strlen((char *)s1) + ft_strlen((char *)s2) + 1);
-	if (str == NULL)
+	if (str == NULL || (s1 == NULL && s2 == NULL))
 	{
-		free(s1);
-		free(s2);
+		ft_free3(s1, s2, str);
 		return (NULL);
 	}
 	start = str;
@@ -50,10 +49,11 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	return (start);
 }
 
-char	*ft_free2(char *s1, char *s2)
+void	*ft_free3(void *s1, void *s2, void *s3)
 {
 	free(s1);
 	free(s2);
+	free(s3);
 	return (NULL);
 }
 
