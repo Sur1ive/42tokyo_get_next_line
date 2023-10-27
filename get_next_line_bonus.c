@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yxu <yxu@student.42tokyo.jp>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 13:14:39 by yxu               #+#    #+#             */
-/*   Updated: 2023/10/27 20:19:51 by yxu              ###   ########.fr       */
+/*   Updated: 2023/10/27 20:33:52 by yxu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 t_lines	*get_line(char *str)
 {
@@ -64,25 +64,25 @@ char	*deal_line(char *buf, char **remain, char **line)
 
 char	*get_next_line_init(int fd, char *buf, char *line)
 {
-	static char	*remain = NULL;
+	static char	*remain[OPEN_MAX] = {NULL};
 	ssize_t		read_byte;
 	char		*result;
 
-	buf = remain;
+	buf = remain[fd];
 	while (1)
 	{
-		result = deal_line(buf, &remain, &line);
+		result = deal_line(buf, &remain[fd], &line);
 		if (result == NULL)
-			return (remain = ft_free3(remain, NULL, NULL));
+			return (remain[fd] = ft_free3(remain[fd], NULL, NULL));
 		if (*result)
 			return (result);
 		buf = (char *)malloc(BUFFER_SIZE + 1);
 		read_byte = read(fd, buf, BUFFER_SIZE);
 		if (read_byte == -1)
-			return (remain = ft_free3(buf, line, NULL));
+			return (remain[fd] = ft_free3(buf, line, NULL));
 		if (read_byte == 0)
 		{
-			remain = ft_free3(buf, NULL, NULL);
+			remain[fd] = ft_free3(buf, NULL, NULL);
 			if (line && *line == '\0')
 				return (ft_free3(line, NULL, NULL));
 			return (line);
@@ -94,6 +94,8 @@ char	*get_next_line_init(int fd, char *buf, char *line)
 char	*get_next_line(int fd)
 {
 	if ((long long)BUFFER_SIZE <= 0 || BUFFER_SIZE >= (long long)INT_MAX)
+		return (NULL);
+	if (fd < 0 || fd >= OPEN_MAX)
 		return (NULL);
 	return (get_next_line_init(fd, NULL, NULL));
 }
