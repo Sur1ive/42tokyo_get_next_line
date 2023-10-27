@@ -6,7 +6,7 @@
 /*   By: yxu <yxu@student.42tokyo.jp>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 13:14:39 by yxu               #+#    #+#             */
-/*   Updated: 2023/10/27 20:33:52 by yxu              ###   ########.fr       */
+/*   Updated: 2023/10/27 20:52:24 by yxu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,14 @@ char	*get_next_line(int fd)
 }
 
 // #include <fcntl.h>
+// #include <libc.h>
+
+// __attribute__((destructor))
+// static void	destructor(void)
+// {
+// 	system("leaks -q a.out");
+// }
+
 // int	main()
 // {
 // 	int		fd;
