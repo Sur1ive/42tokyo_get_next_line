@@ -1,4 +1,4 @@
-![](./42.png)
+![](https://github.com/Sur1ive/42tokyo_piscine/blob/master/42.png)
 # get_next_line
 **Final grade: 125%**:white_check_mark:</br>
 
